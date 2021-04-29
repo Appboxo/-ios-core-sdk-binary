@@ -1,0 +1,106 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.2 effective-4.2 (swiftlang-1103.0.32.1 clang-1103.0.32.29)
+// swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name AppBoxoSDK
+import AVFoundation
+@_exported import AppBoxoSDK
+import CommonCrypto
+import CoreLocation
+import CoreMotion
+import Foundation
+import SafariServices
+import Swift
+import UIKit
+import WebKit
+@_inheritsConvenienceInitializers @objc(MiniappData) public class MiniappData : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var id: Swift.Int
+  @objc public var name: Swift.String
+  @objc public var longDescription: Swift.String
+  @objc public var logo: Swift.String
+  @objc public var appId: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(MiniappConfig) public class MiniappConfig : ObjectiveC.NSObject {
+  @objc(initWithTheme:) convenience public init(theme: AppBoxoSDK.Theme)
+  @objc(initWithColor:) convenience public init(color: AppBoxoSDK.MiniappColor)
+  @objc(initWithColor:theme:) required public init(color: AppBoxoSDK.MiniappColor?, theme: AppBoxoSDK.Theme)
+  @objc(setColor:) public func setColor(color: AppBoxoSDK.MiniappColor)
+  @objc(setTheme:) public func setTheme(theme: AppBoxoSDK.Theme)
+  @objc(setExtraParams:) public func setExtraParams(extraParams: [Swift.String : Swift.String]?)
+  @objc(setCustomActionMenuItemImage:) public func setCustomActionMenuItemImage(image: UIKit.UIImage?)
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(MiniappColor) public class MiniappColor : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var primaryColor: Swift.String?
+  @objc public var secondaryColor: Swift.String?
+  @objc public var tertiaryColor: Swift.String?
+  @objc(initWithPrimary:secondary:tertiary:) required public init(primary: Swift.String, secondary: Swift.String, tertiary: Swift.String)
+  @objc deinit
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(Theme) public enum Theme : Swift.Int {
+  case Dark = 0
+  case Light = 1
+  case System = 2
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(Config) public class Config : ObjectiveC.NSObject {
+  @objc(initWithClientId:) convenience public init(clientId: Swift.String)
+  @objc(initWithClientId:theme:) required public init(clientId: Swift.String, theme: AppBoxoSDK.Theme)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(Appboxo) public class Appboxo : ObjectiveC.NSObject {
+  @objc public static let shared: AppBoxoSDK.Appboxo
+  @objc required public init(config: AppBoxoSDK.Config)
+  @objc(setConfig:) public func setConfig(config: AppBoxoSDK.Config)
+  @objc(getConfig) public func getConfig() -> AppBoxoSDK.Config
+  @objc(getMiniappWithAppId:) public func getMiniapp(appId: Swift.String) -> AppBoxoSDK.Miniapp
+  @objc(getExistingMiniappWithAppId:) public func getExistingMiniapp(appId: Swift.String) -> AppBoxoSDK.Miniapp?
+  @objc(hideMiniapps) public func hideMiniapps()
+  @objc(logout) public func logout()
+  @objc(destroyAppId:) public func destroy(appId: Swift.String)
+  @objc(getMiniapps:) public func getMiniapps(completion: @escaping ([AppBoxoSDK.MiniappData], Swift.String?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(MiniappDelegate) public protocol MiniappDelegate {
+  @objc(didSelectCustomActionMenuItemEvent:) optional func didSelectCustomActionMenuItemEvent(miniapp: AppBoxoSDK.Miniapp)
+  @objc(didChangeUrlEvent:url:) optional func didChangeUrlEvent(miniapp: AppBoxoSDK.Miniapp, url: Foundation.URL)
+  @objc optional func didReceiveCustomEvent(miniapp: AppBoxoSDK.Miniapp, params: [Swift.String : Any])
+  @objc optional func didReceivePaymentEvent(miniapp: AppBoxoSDK.Miniapp, params: [Swift.String : Any])
+  @objc(onLaunchMiniapp:) optional func onLaunch(miniapp: AppBoxoSDK.Miniapp)
+  @objc(onResumeMiniapp:) optional func onResume(miniapp: AppBoxoSDK.Miniapp)
+  @objc(onPauseMiniapp:) optional func onPause(miniapp: AppBoxoSDK.Miniapp)
+  @objc(onCloseMiniapp:) optional func onClose(miniapp: AppBoxoSDK.Miniapp)
+  @objc(onErrorMiniapp:message:) optional func onError(miniapp: AppBoxoSDK.Miniapp, message: Swift.String)
+}
+@objc(Miniapp) public class Miniapp : ObjectiveC.NSObject {
+  @objc public var appId: Swift.String
+  @objc public var delegate: AppBoxoSDK.MiniappDelegate?
+  @objc(initWithAppId:) required public init(appId: Swift.String)
+  @objc(openWithViewController:) public func open(viewController: UIKit.UIViewController)
+  @objc(sendCustomEventWithParams:) public func sendCustomEvent(params: [Swift.String : Any])
+  @objc(sendPaymentEventWithParams:) public func sendPaymentEvent(params: [Swift.String : Any])
+  @objc(close) public func close()
+  @objc(setConfig:) public func setConfig(config: AppBoxoSDK.MiniappConfig?)
+  @objc(setAuthPayload:) public func setAuthPayload(authPayload: Swift.String)
+  @objc(setAdditionalUserFields:) public func setAdditionalUserFields(additionalUserFields: [Swift.String : Any]?)
+  @objc(setData:) public func setData(data: [Swift.String : Any]?)
+  @objc(showCustomActionMenuItem) public func showCustomActionMenuItem()
+  @objc(hideCustomActionMenuItem) public func hideCustomActionMenuItem()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AppBoxoSDK.Theme : Swift.Equatable {}
+extension AppBoxoSDK.Theme : Swift.Hashable {}
+extension AppBoxoSDK.Theme : Swift.RawRepresentable {}

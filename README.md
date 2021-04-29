@@ -188,6 +188,19 @@ and implement MiniappDelegate
      @end
 
 
+**Get miniapp list**
+
+**Swift**
+
+    Appboxo.shared.getMiniapps { (miniapps, error) in
+        ...
+    }
+
+**Objective-C**
+
+    [[Appboxo shared] getMiniapps:^(NSArray<MiniappData *> *miniapps, NSString *error) {
+        ...
+    }];
 
 
 To logout from all the miniapps within your mobile application use this method
@@ -209,4 +222,4 @@ Here is an example project: https://github.com/Appboxo/ios-sample-superapp
 
 ## License
 
-AppBoxo is available under the Apache license. See the LICENSE file for more info.
+AppBoxo is available under the Apache 2.0 license. See the LICENSE file for more info.
