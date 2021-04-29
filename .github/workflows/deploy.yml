@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1 
+    - name: Configure github access
+      run: |
+        git config --global user.email "azamat.kushmanov@gmail.com"
+        git config --global user.name "Azamat Kushmanov"
+        git config --global url."https://${{ secrets.token }}:@github.com/".insteadOf "https://github.com/"
+    - name: Set git tag
+      run: |
+        git tag `cat version.txt`
+        git push --tags
+    - name: Update cocoapods
+      run: |
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
+        export COCOAPODS_TRUNK_TOKEN=${{secrets.COCOAPODS_TRUNK_TOKEN}}
+        pod trunk push AppBoxoSDK.podspec --allow-warnings
