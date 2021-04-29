@@ -22,4 +22,4 @@ jobs:
       run: |
         sudo xcode-select -switch /Applications/Xcode_11.4.app
         export COCOAPODS_TRUNK_TOKEN=${{secrets.COCOAPODS_TRUNK_TOKEN}}
-        pod trunk push AppBoxoSDK.podspec --allow-warnings
+        pod trunk push AppBoxoCoreSDK.podspec --allow-warnings
