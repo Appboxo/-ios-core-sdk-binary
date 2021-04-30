@@ -16,7 +16,7 @@
    CocoaPods is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. 
    To integrate AppBoxoSDK into your Xcode project using CocoaPods, specify it in your Podfile:
     
-    pod 'AppBoxoSDK/Core'
+    pod 'AppBoxoCoreSDK'
 
 
 
