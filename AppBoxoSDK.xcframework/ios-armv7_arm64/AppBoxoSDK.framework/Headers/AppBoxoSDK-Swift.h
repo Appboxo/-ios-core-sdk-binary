@@ -295,12 +295,11 @@ SWIFT_CLASS_NAMED("MiniappConfig")
 SWIFT_CLASS_NAMED("MiniappData")
 @interface MiniappData : NSObject
 @property (nonatomic) NSInteger id;
-@property (nonatomic, copy) NSString * _Nonnull name;
-@property (nonatomic, copy) NSString * _Nonnull longDescription;
-@property (nonatomic, copy) NSString * _Nonnull logo;
-@property (nonatomic, copy) NSString * _Nonnull appId;
-@property (nonatomic, copy) NSString * _Nonnull category;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable longDescription;
+@property (nonatomic, copy) NSString * _Nullable logo;
+@property (nonatomic, copy) NSString * _Nullable appId;
+@property (nonatomic, copy) NSString * _Nullable category;
 @end
 
 
@@ -651,12 +650,11 @@ SWIFT_CLASS_NAMED("MiniappConfig")
 SWIFT_CLASS_NAMED("MiniappData")
 @interface MiniappData : NSObject
 @property (nonatomic) NSInteger id;
-@property (nonatomic, copy) NSString * _Nonnull name;
-@property (nonatomic, copy) NSString * _Nonnull longDescription;
-@property (nonatomic, copy) NSString * _Nonnull logo;
-@property (nonatomic, copy) NSString * _Nonnull appId;
-@property (nonatomic, copy) NSString * _Nonnull category;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable longDescription;
+@property (nonatomic, copy) NSString * _Nullable logo;
+@property (nonatomic, copy) NSString * _Nullable appId;
+@property (nonatomic, copy) NSString * _Nullable category;
 @end
 
 

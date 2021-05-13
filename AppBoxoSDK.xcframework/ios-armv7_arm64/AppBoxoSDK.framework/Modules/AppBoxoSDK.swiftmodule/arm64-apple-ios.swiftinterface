@@ -11,15 +11,14 @@ import SafariServices
 import Swift
 import UIKit
 import WebKit
-@_inheritsConvenienceInitializers @objc(MiniappData) public class MiniappData : ObjectiveC.NSObject, Swift.Codable {
+@objc(MiniappData) public class MiniappData : ObjectiveC.NSObject, Swift.Codable {
   @objc public var id: Swift.Int
-  @objc public var name: Swift.String
-  @objc public var longDescription: Swift.String
-  @objc public var logo: Swift.String
-  @objc public var appId: Swift.String
-  @objc public var category: Swift.String
+  @objc public var name: Swift.String?
+  @objc public var longDescription: Swift.String?
+  @objc public var logo: Swift.String?
+  @objc public var appId: Swift.String?
+  @objc public var category: Swift.String?
   @objc deinit
-  @objc override dynamic public init()
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
