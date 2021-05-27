@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
     s.source = { :git => "https://github.com/Appboxo/ios-core-sdk-binary.git", :tag => "#{s.version}" }
     
     s.exclude_files = "Classes/Exclude"
-    s.ios.vendored_frameworks = 'AppBoxoSDK.xcframework'
+    s.ios.vendored_frameworks = 'AppBoxoCoreSDK.xcframework'
     
 end
 
