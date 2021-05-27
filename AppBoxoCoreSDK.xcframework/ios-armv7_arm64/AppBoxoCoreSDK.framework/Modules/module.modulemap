@@ -1,0 +1,11 @@
+framework module AppBoxoCoreSDK {
+  umbrella header "AppBoxoCoreSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module AppBoxoCoreSDK.Swift {
+    header "AppBoxoCoreSDK-Swift.h"
+    requires objc
+}
