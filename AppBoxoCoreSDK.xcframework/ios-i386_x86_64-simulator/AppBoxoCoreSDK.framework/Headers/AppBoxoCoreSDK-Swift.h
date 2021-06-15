@@ -236,6 +236,7 @@ enum Theme : NSInteger;
 
 SWIFT_CLASS_NAMED("Config")
 @interface Config : NSObject
+@property (nonatomic) BOOL isSandbox;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId theme:(enum Theme)theme OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -256,11 +257,10 @@ SWIFT_CLASS_NAMED("Miniapp")
 - (void)sendPaymentEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
 - (void)close;
 - (void)setConfig:(MiniappConfig * _Nullable)config;
-- (void)setAuthPayload:(NSString * _Nonnull)authPayload;
-- (void)setAdditionalUserFields:(NSDictionary<NSString *, id> * _Nullable)additionalUserFields;
 - (void)setData:(NSDictionary<NSString *, id> * _Nullable)data;
 - (void)showCustomActionMenuItem;
 - (void)hideCustomActionMenuItem;
+- (void)setAuthCode:(NSString * _Nonnull)authCode;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -315,6 +315,7 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onPauseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
+- (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
 @end
 
 
@@ -591,6 +592,7 @@ enum Theme : NSInteger;
 
 SWIFT_CLASS_NAMED("Config")
 @interface Config : NSObject
+@property (nonatomic) BOOL isSandbox;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId theme:(enum Theme)theme OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -611,11 +613,10 @@ SWIFT_CLASS_NAMED("Miniapp")
 - (void)sendPaymentEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
 - (void)close;
 - (void)setConfig:(MiniappConfig * _Nullable)config;
-- (void)setAuthPayload:(NSString * _Nonnull)authPayload;
-- (void)setAdditionalUserFields:(NSDictionary<NSString *, id> * _Nullable)additionalUserFields;
 - (void)setData:(NSDictionary<NSString *, id> * _Nullable)data;
 - (void)showCustomActionMenuItem;
 - (void)hideCustomActionMenuItem;
+- (void)setAuthCode:(NSString * _Nonnull)authCode;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -670,6 +671,7 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onPauseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
+- (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
 @end
 
 
