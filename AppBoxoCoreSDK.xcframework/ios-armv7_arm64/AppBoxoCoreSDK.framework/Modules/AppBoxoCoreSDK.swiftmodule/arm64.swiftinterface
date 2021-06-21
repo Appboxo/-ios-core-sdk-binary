@@ -32,11 +32,30 @@ import WebKit
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
+@_inheritsConvenienceInitializers @objc(PaymentData) public class PaymentData : ObjectiveC.NSObject {
+  @objc public var transactionToken: Swift.String
+  @objc public var miniappOrderId: Swift.String
+  @objc public var amount: Swift.Double
+  @objc public var currency: Swift.String
+  @objc public var status: Swift.String
+  @objc public var hostappOrderId: Swift.String
+  @objc public var extraParams: [Swift.String : Any]?
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objc(CustomEvent) public class CustomEvent : ObjectiveC.NSObject {
+  @objc public var requestId: Swift.Int
+  @objc public var type: Swift.String
+  @objc public var errorType: Swift.String
+  @objc public var payload: [Swift.String : Any]?
+  @objc deinit
+  @objc override dynamic public init()
+}
 @objc(MiniappDelegate) public protocol MiniappDelegate {
   @objc(didSelectCustomActionMenuItemEvent:) optional func didSelectCustomActionMenuItemEvent(miniapp: AppBoxoCoreSDK.Miniapp)
   @objc(didChangeUrlEvent:url:) optional func didChangeUrlEvent(miniapp: AppBoxoCoreSDK.Miniapp, url: Foundation.URL)
-  @objc optional func didReceiveCustomEvent(miniapp: AppBoxoCoreSDK.Miniapp, params: [Swift.String : Any])
-  @objc optional func didReceivePaymentEvent(miniapp: AppBoxoCoreSDK.Miniapp, params: [Swift.String : Any])
+  @objc(didReceiveCustomEvent:customEvent:) optional func didReceiveCustomEvent(miniapp: AppBoxoCoreSDK.Miniapp, customEvent: AppBoxoCoreSDK.CustomEvent)
+  @objc(didReceivePaymentEvent:paymentData:) optional func didReceivePaymentEvent(miniapp: AppBoxoCoreSDK.Miniapp, paymentData: AppBoxoCoreSDK.PaymentData)
   @objc(onLaunchMiniapp:) optional func onLaunch(miniapp: AppBoxoCoreSDK.Miniapp)
   @objc(onResumeMiniapp:) optional func onResume(miniapp: AppBoxoCoreSDK.Miniapp)
   @objc(onPauseMiniapp:) optional func onPause(miniapp: AppBoxoCoreSDK.Miniapp)
@@ -49,8 +68,8 @@ import WebKit
   @objc public var delegate: AppBoxoCoreSDK.MiniappDelegate?
   @objc(initWithAppId:) required public init(appId: Swift.String)
   @objc(openWithViewController:) public func open(viewController: UIKit.UIViewController)
-  @objc(sendCustomEventWithParams:) public func sendCustomEvent(params: [Swift.String : Any])
-  @objc(sendPaymentEventWithParams:) public func sendPaymentEvent(params: [Swift.String : Any])
+  @objc(sendCustomEvent:) public func sendCustomEvent(customEvent: AppBoxoCoreSDK.CustomEvent)
+  @objc(sendPaymentEvent:) public func sendPaymentEvent(paymentData: AppBoxoCoreSDK.PaymentData)
   @objc(close) public func close()
   @objc(setConfig:) public func setConfig(config: AppBoxoCoreSDK.MiniappConfig?)
   @objc(setData:) public func setData(data: [Swift.String : Any]?)
@@ -85,7 +104,7 @@ import WebKit
   }
 }
 @objc(Config) public class Config : ObjectiveC.NSObject {
-  @objc public var isSandbox: Swift.Bool
+  @objc public var sandboxMode: Swift.Bool
   @objc(initWithClientId:) convenience public init(clientId: Swift.String)
   @objc(initWithClientId:theme:) required public init(clientId: Swift.String, theme: AppBoxoCoreSDK.Theme)
   @objc override dynamic public init()

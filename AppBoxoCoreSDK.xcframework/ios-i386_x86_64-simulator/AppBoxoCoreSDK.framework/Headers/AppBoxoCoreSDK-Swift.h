@@ -236,15 +236,26 @@ enum Theme : NSInteger;
 
 SWIFT_CLASS_NAMED("Config")
 @interface Config : NSObject
-@property (nonatomic) BOOL isSandbox;
+@property (nonatomic) BOOL sandboxMode;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId theme:(enum Theme)theme OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+SWIFT_CLASS_NAMED("CustomEvent")
+@interface CustomEvent : NSObject
+@property (nonatomic) NSInteger requestId;
+@property (nonatomic, copy) NSString * _Nonnull type;
+@property (nonatomic, copy) NSString * _Nonnull errorType;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable payload;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @protocol MiniappDelegate;
 @class UIViewController;
+@class PaymentData;
 @class MiniappConfig;
 
 SWIFT_CLASS_NAMED("Miniapp")
@@ -253,8 +264,8 @@ SWIFT_CLASS_NAMED("Miniapp")
 @property (nonatomic, strong) id <MiniappDelegate> _Nullable delegate;
 - (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId OBJC_DESIGNATED_INITIALIZER;
 - (void)openWithViewController:(UIViewController * _Nonnull)viewController;
-- (void)sendCustomEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
-- (void)sendPaymentEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)sendCustomEvent:(CustomEvent * _Nonnull)customEvent;
+- (void)sendPaymentEvent:(PaymentData * _Nonnull)paymentData;
 - (void)close;
 - (void)setConfig:(MiniappConfig * _Nullable)config;
 - (void)setData:(NSDictionary<NSString *, id> * _Nullable)data;
@@ -308,8 +319,8 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 @optional
 - (void)didSelectCustomActionMenuItemEvent:(Miniapp * _Nonnull)miniapp;
 - (void)didChangeUrlEvent:(Miniapp * _Nonnull)miniapp url:(NSURL * _Nonnull)url;
-- (void)didReceiveCustomEventWithMiniapp:(Miniapp * _Nonnull)miniapp params:(NSDictionary<NSString *, id> * _Nonnull)params;
-- (void)didReceivePaymentEventWithMiniapp:(Miniapp * _Nonnull)miniapp params:(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)didReceiveCustomEvent:(Miniapp * _Nonnull)miniapp customEvent:(CustomEvent * _Nonnull)customEvent;
+- (void)didReceivePaymentEvent:(Miniapp * _Nonnull)miniapp paymentData:(PaymentData * _Nonnull)paymentData;
 - (void)onLaunchMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onResumeMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onPauseMiniapp:(Miniapp * _Nonnull)miniapp;
@@ -319,6 +330,19 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("PaymentData")
+@interface PaymentData : NSObject
+@property (nonatomic, copy) NSString * _Nonnull transactionToken;
+@property (nonatomic, copy) NSString * _Nonnull miniappOrderId;
+@property (nonatomic) double amount;
+@property (nonatomic, copy) NSString * _Nonnull currency;
+@property (nonatomic, copy) NSString * _Nonnull status;
+@property (nonatomic, copy) NSString * _Nonnull hostappOrderId;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable extraParams;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 typedef SWIFT_ENUM_NAMED(NSInteger, Theme, "Theme", open) {
   ThemeDark = 0,
@@ -592,15 +616,26 @@ enum Theme : NSInteger;
 
 SWIFT_CLASS_NAMED("Config")
 @interface Config : NSObject
-@property (nonatomic) BOOL isSandbox;
+@property (nonatomic) BOOL sandboxMode;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId theme:(enum Theme)theme OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+SWIFT_CLASS_NAMED("CustomEvent")
+@interface CustomEvent : NSObject
+@property (nonatomic) NSInteger requestId;
+@property (nonatomic, copy) NSString * _Nonnull type;
+@property (nonatomic, copy) NSString * _Nonnull errorType;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable payload;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @protocol MiniappDelegate;
 @class UIViewController;
+@class PaymentData;
 @class MiniappConfig;
 
 SWIFT_CLASS_NAMED("Miniapp")
@@ -609,8 +644,8 @@ SWIFT_CLASS_NAMED("Miniapp")
 @property (nonatomic, strong) id <MiniappDelegate> _Nullable delegate;
 - (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId OBJC_DESIGNATED_INITIALIZER;
 - (void)openWithViewController:(UIViewController * _Nonnull)viewController;
-- (void)sendCustomEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
-- (void)sendPaymentEventWithParams:(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)sendCustomEvent:(CustomEvent * _Nonnull)customEvent;
+- (void)sendPaymentEvent:(PaymentData * _Nonnull)paymentData;
 - (void)close;
 - (void)setConfig:(MiniappConfig * _Nullable)config;
 - (void)setData:(NSDictionary<NSString *, id> * _Nullable)data;
@@ -664,8 +699,8 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 @optional
 - (void)didSelectCustomActionMenuItemEvent:(Miniapp * _Nonnull)miniapp;
 - (void)didChangeUrlEvent:(Miniapp * _Nonnull)miniapp url:(NSURL * _Nonnull)url;
-- (void)didReceiveCustomEventWithMiniapp:(Miniapp * _Nonnull)miniapp params:(NSDictionary<NSString *, id> * _Nonnull)params;
-- (void)didReceivePaymentEventWithMiniapp:(Miniapp * _Nonnull)miniapp params:(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)didReceiveCustomEvent:(Miniapp * _Nonnull)miniapp customEvent:(CustomEvent * _Nonnull)customEvent;
+- (void)didReceivePaymentEvent:(Miniapp * _Nonnull)miniapp paymentData:(PaymentData * _Nonnull)paymentData;
 - (void)onLaunchMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onResumeMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onPauseMiniapp:(Miniapp * _Nonnull)miniapp;
@@ -675,6 +710,19 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("PaymentData")
+@interface PaymentData : NSObject
+@property (nonatomic, copy) NSString * _Nonnull transactionToken;
+@property (nonatomic, copy) NSString * _Nonnull miniappOrderId;
+@property (nonatomic) double amount;
+@property (nonatomic, copy) NSString * _Nonnull currency;
+@property (nonatomic, copy) NSString * _Nonnull status;
+@property (nonatomic, copy) NSString * _Nonnull hostappOrderId;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable extraParams;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 typedef SWIFT_ENUM_NAMED(NSInteger, Theme, "Theme", open) {
   ThemeDark = 0,
