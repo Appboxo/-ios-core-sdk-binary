@@ -254,6 +254,7 @@ SWIFT_CLASS_NAMED("CustomEvent")
 @end
 
 @protocol MiniappDelegate;
+@protocol MiniappWebviewDelegate;
 @class UIViewController;
 @class PaymentData;
 @class MiniappConfig;
@@ -262,6 +263,7 @@ SWIFT_CLASS_NAMED("Miniapp")
 @interface Miniapp : NSObject
 @property (nonatomic, copy) NSString * _Nonnull appId;
 @property (nonatomic, strong) id <MiniappDelegate> _Nullable delegate;
+@property (nonatomic, strong) id <MiniappWebviewDelegate> _Nullable webViewDelegate;
 - (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId OBJC_DESIGNATED_INITIALIZER;
 - (void)openWithViewController:(UIViewController * _Nonnull)viewController;
 - (void)sendCustomEvent:(CustomEvent * _Nonnull)customEvent;
@@ -327,6 +329,13 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
 - (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
+@end
+
+@class WKNavigationAction;
+
+SWIFT_PROTOCOL_NAMED("MiniappWebViewDelegate")
+@protocol MiniappWebviewDelegate
+- (void)decidePolicyFor:(Miniapp * _Nonnull)miniapp navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler;
 @end
 
 
@@ -634,6 +643,7 @@ SWIFT_CLASS_NAMED("CustomEvent")
 @end
 
 @protocol MiniappDelegate;
+@protocol MiniappWebviewDelegate;
 @class UIViewController;
 @class PaymentData;
 @class MiniappConfig;
@@ -642,6 +652,7 @@ SWIFT_CLASS_NAMED("Miniapp")
 @interface Miniapp : NSObject
 @property (nonatomic, copy) NSString * _Nonnull appId;
 @property (nonatomic, strong) id <MiniappDelegate> _Nullable delegate;
+@property (nonatomic, strong) id <MiniappWebviewDelegate> _Nullable webViewDelegate;
 - (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId OBJC_DESIGNATED_INITIALIZER;
 - (void)openWithViewController:(UIViewController * _Nonnull)viewController;
 - (void)sendCustomEvent:(CustomEvent * _Nonnull)customEvent;
@@ -707,6 +718,13 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
 - (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
+@end
+
+@class WKNavigationAction;
+
+SWIFT_PROTOCOL_NAMED("MiniappWebViewDelegate")
+@protocol MiniappWebviewDelegate
+- (void)decidePolicyFor:(Miniapp * _Nonnull)miniapp navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler;
 @end
 
 

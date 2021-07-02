@@ -51,21 +51,10 @@ import WebKit
   @objc deinit
   @objc override dynamic public init()
 }
-@objc(MiniappDelegate) public protocol MiniappDelegate {
-  @objc(didSelectCustomActionMenuItemEvent:) optional func didSelectCustomActionMenuItemEvent(miniapp: AppBoxoCoreSDK.Miniapp)
-  @objc(didChangeUrlEvent:url:) optional func didChangeUrlEvent(miniapp: AppBoxoCoreSDK.Miniapp, url: Foundation.URL)
-  @objc(didReceiveCustomEvent:customEvent:) optional func didReceiveCustomEvent(miniapp: AppBoxoCoreSDK.Miniapp, customEvent: AppBoxoCoreSDK.CustomEvent)
-  @objc(didReceivePaymentEvent:paymentData:) optional func didReceivePaymentEvent(miniapp: AppBoxoCoreSDK.Miniapp, paymentData: AppBoxoCoreSDK.PaymentData)
-  @objc(onLaunchMiniapp:) optional func onLaunch(miniapp: AppBoxoCoreSDK.Miniapp)
-  @objc(onResumeMiniapp:) optional func onResume(miniapp: AppBoxoCoreSDK.Miniapp)
-  @objc(onPauseMiniapp:) optional func onPause(miniapp: AppBoxoCoreSDK.Miniapp)
-  @objc(onCloseMiniapp:) optional func onClose(miniapp: AppBoxoCoreSDK.Miniapp)
-  @objc(onErrorMiniapp:message:) optional func onError(miniapp: AppBoxoCoreSDK.Miniapp, message: Swift.String)
-  @objc(onAuthMiniapp:) optional func onAuth(miniapp: AppBoxoCoreSDK.Miniapp)
-}
 @objc(Miniapp) open class Miniapp : ObjectiveC.NSObject {
   @objc public var appId: Swift.String
   @objc public var delegate: AppBoxoCoreSDK.MiniappDelegate?
+  @objc public var webViewDelegate: AppBoxoCoreSDK.MiniappWebViewDelegate?
   @objc(initWithAppId:) required public init(appId: Swift.String)
   @objc(openWithViewController:) public func open(viewController: UIKit.UIViewController)
   @objc(sendCustomEvent:) public func sendCustomEvent(customEvent: AppBoxoCoreSDK.CustomEvent)
@@ -92,6 +81,21 @@ import WebKit
   @objc(getMiniapps:) public func getMiniapps(completion: @escaping ([AppBoxoCoreSDK.MiniappData], Swift.String?) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
+}
+@objc(MiniappDelegate) public protocol MiniappDelegate {
+  @objc(didSelectCustomActionMenuItemEvent:) optional func didSelectCustomActionMenuItemEvent(miniapp: AppBoxoCoreSDK.Miniapp)
+  @objc(didChangeUrlEvent:url:) optional func didChangeUrlEvent(miniapp: AppBoxoCoreSDK.Miniapp, url: Foundation.URL)
+  @objc(didReceiveCustomEvent:customEvent:) optional func didReceiveCustomEvent(miniapp: AppBoxoCoreSDK.Miniapp, customEvent: AppBoxoCoreSDK.CustomEvent)
+  @objc(didReceivePaymentEvent:paymentData:) optional func didReceivePaymentEvent(miniapp: AppBoxoCoreSDK.Miniapp, paymentData: AppBoxoCoreSDK.PaymentData)
+  @objc(onLaunchMiniapp:) optional func onLaunch(miniapp: AppBoxoCoreSDK.Miniapp)
+  @objc(onResumeMiniapp:) optional func onResume(miniapp: AppBoxoCoreSDK.Miniapp)
+  @objc(onPauseMiniapp:) optional func onPause(miniapp: AppBoxoCoreSDK.Miniapp)
+  @objc(onCloseMiniapp:) optional func onClose(miniapp: AppBoxoCoreSDK.Miniapp)
+  @objc(onErrorMiniapp:message:) optional func onError(miniapp: AppBoxoCoreSDK.Miniapp, message: Swift.String)
+  @objc(onAuthMiniapp:) optional func onAuth(miniapp: AppBoxoCoreSDK.Miniapp)
+}
+@objc(MiniappWebviewDelegate) public protocol MiniappWebViewDelegate {
+  @objc(decidePolicyFor:navigationAction:decisionHandler:) func decidePolicyFor(miniapp: AppBoxoCoreSDK.Miniapp, navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
 }
 @objc(Theme) public enum Theme : Swift.Int {
   case Dark = 0
