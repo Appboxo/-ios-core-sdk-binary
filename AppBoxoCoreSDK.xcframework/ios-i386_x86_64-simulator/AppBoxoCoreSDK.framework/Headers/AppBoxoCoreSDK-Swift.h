@@ -331,6 +331,7 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
 - (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
+- (void)onUserInteraction:(Miniapp * _Nonnull)miniapp;
 @end
 
 @class WKNavigationAction;
@@ -722,6 +723,7 @@ SWIFT_PROTOCOL_NAMED("MiniappDelegate")
 - (void)onCloseMiniapp:(Miniapp * _Nonnull)miniapp;
 - (void)onErrorMiniapp:(Miniapp * _Nonnull)miniapp message:(NSString * _Nonnull)message;
 - (void)onAuthMiniapp:(Miniapp * _Nonnull)miniapp;
+- (void)onUserInteraction:(Miniapp * _Nonnull)miniapp;
 @end
 
 @class WKNavigationAction;
