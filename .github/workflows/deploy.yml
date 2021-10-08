@@ -20,6 +20,6 @@ jobs:
         git push --tags
     - name: Update cocoapods
       run: |
-        sudo xcode-select -switch /Applications/Xcode_11.4.app
+        sudo xcode-select -switch /Applications/Xcode.app
         export COCOAPODS_TRUNK_TOKEN=${{secrets.COCOAPODS_TRUNK_TOKEN}}
         pod trunk push AppBoxoCoreSDK.podspec --allow-warnings
