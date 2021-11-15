@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
 // swift-module-flags: -target i386-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AppBoxoCoreSDK
 import AVFoundation
 @_exported import AppBoxoCoreSDK
@@ -11,6 +11,7 @@ import SafariServices
 import Swift
 import UIKit
 import WebKit
+import _Concurrency
 @objc(MiniappData) public class MiniappData : ObjectiveC.NSObject, Swift.Codable {
   @objc public var id: Swift.Int
   @objc public var name: Swift.String?
@@ -28,7 +29,6 @@ import WebKit
   @objc public var tertiaryColor: Swift.String?
   @objc(initWithPrimary:secondary:tertiary:) required public init(primary: Swift.String, secondary: Swift.String, tertiary: Swift.String)
   @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
-  @objc override dynamic public init()
   @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
   required public init(from decoder: Swift.Decoder) throws
@@ -66,7 +66,6 @@ import WebKit
   @objc(showCustomActionMenuItem) public func showCustomActionMenuItem()
   @objc(hideCustomActionMenuItem) public func hideCustomActionMenuItem()
   @objc(setAuthCode:) public func setAuthCode(authCode: Swift.String)
-  @objc override dynamic public init()
   @objc deinit
 }
 @objc(Appboxo) open class Appboxo : ObjectiveC.NSObject {
@@ -79,8 +78,7 @@ import WebKit
   @objc(hideMiniapps) public func hideMiniapps()
   @objc(logout) public func logout()
   @objc(destroyAppId:) public func destroy(appId: Swift.String)
-  @objc(getMiniapps:) public func getMiniapps(completion: @escaping ([AppBoxoCoreSDK.MiniappData], Swift.String?) -> Swift.Void)
-  @objc override dynamic public init()
+  @objc(getMiniapps:) public func getMiniapps(completion: @escaping (_ miniapps: [AppBoxoCoreSDK.MiniappData], _ error: Swift.String?) -> Swift.Void)
   @objc deinit
 }
 @objc(MiniappDelegate) public protocol MiniappDelegate {
@@ -112,9 +110,9 @@ import WebKit
 @objc(Config) public class Config : ObjectiveC.NSObject {
   @objc public var sandboxMode: Swift.Bool
   @objc public var permissionsPage: Swift.Bool
+  @objc public var showClearCache: Swift.Bool
   @objc(initWithClientId:) convenience public init(clientId: Swift.String)
   @objc(initWithClientId:theme:) required public init(clientId: Swift.String, theme: AppBoxoCoreSDK.Theme)
-  @objc override dynamic public init()
   @objc deinit
 }
 @objc(MiniappConfig) public class MiniappConfig : ObjectiveC.NSObject {
@@ -125,7 +123,6 @@ import WebKit
   @objc(setTheme:) public func setTheme(theme: AppBoxoCoreSDK.Theme)
   @objc(setExtraParams:) public func setExtraParams(extraParams: [Swift.String : Swift.String]?)
   @objc(setCustomActionMenuItemImage:) public func setCustomActionMenuItemImage(image: UIKit.UIImage?)
-  @objc override dynamic public init()
   @objc deinit
 }
 extension AppBoxoCoreSDK.Theme : Swift.Equatable {}
